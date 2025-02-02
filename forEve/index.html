@@ -24,11 +24,10 @@
             <h2>Section 3</h2>
         </section>
         <section class="section-4">
-            <div class="top-banner"     id="top"></div>
-            <div class="left-banner"    id="left"></div>
-            <div class="right-banner"   id="right"></div>
-            <div class="bottom-banner"  id="bottom"></div>
-            <img class="sticky-panel" src="me_when.jpg" alt="A crowd of protestors" />
+            <div class="top-banner" id="top"></div>
+            <div class="left-banner" id="left"></div>
+            <div class="right-banner" id="right"></div>
+            <div class="bottom-banner" id="bottom"></div>
         </section>
         <section class="section-5">
             <img class="sticky-panel" src="me_when.jpg" alt="A crowd of protestors" />
@@ -41,33 +40,51 @@
 
 <script>
     window.onload = function () {
-        leftbar = document.getElementById("left");
-        leftbar.style.setProperty("left", "0px;");
-
-
+        document.getElementById("left").style.left = "0vw";
     }
 
     window.onscroll = function () {
         var offsetToSection5 = section5.getBoundingClientRect();
         var top5 = offsetToSection5.top;
-        console.log(top5);
+        var newVH = window.innerHeight;
+        var newVW = window.innerWidth;
+        offsetProgress = top5 / newVH;
+        width = document.getElementById("left").offsetWidth;
+        newLeft = (100 * offsetProgress * width / newVW - 31.333)
+        //if bigger than 0, set to 0
+        if (newLeft > 0) {
+            newLeft = 0;
+        }
+        if (newLeft < -20) {
+            newLeft = -20;
+        }
+        document.getElementById("left").style.left = newLeft.toString() + "vw";
+
+        //console.log(top5);
         //from top5 being vh to 0, do the cinema scroll
         //above vh, set max (1), below 0 set min (0)
         //functions negate the x attribute in x-banner in section 4
 
         var offsetToSection6 = section6.getBoundingClientRect();
         var top6 = offsetToSection6.top;
-        console.log(top6);
+        //console.log(top6);
         //from top6 being vh to 0, do the zoom. maybe add another section if scroll is too fast
         //above vh, set max (1), below 0 set min (0)
         //function zoom img in section 4
     }
 
-    function scrollLeft(offset) {
-        leftbar = document.getElementById("left");
-        console.log(leftbar.left);
-        console.log(leftbar);
-        leftbar.style.setProperty("left", (-1 * offset * leftbar.offsetWidth).toString + "px");
+    function scrollLeftBar(offset) {
+        document.getElementById("left").style.left = "-20vw";
+    }
+
+
+    function scrollLeft(entries, o) {
+        entries.forEach(entry => {
+            entry.target.style.left = (-1 * entry.target.getBoundingClientRect().top / window.innerHeight * leftbar.offsetWidth).toString + "px;";
+            //console.log(entry.target.getBoundingClientRect().top);
+            //console.log(entry.target.getBoundingClientRect().window.innerHeight);
+            //console.log(entry.target.getBoundingClientRect().leftbar.offsetWidth);
+        })
     }
 
     function scrollRight(entries) {
@@ -78,9 +95,10 @@
         })
     }
     
-    const section4 = document.querySelector("section.section-4");
-    const section5 = document.querySelector("section.section-5");
-    const section6 = document.querySelector("section.section-6");
+    const section4   = document.querySelector("section.section-4");
+    const section5   = document.querySelector("section.section-5");
+    const section6   = document.querySelector("section.section-6");
+    const leftBanner = document.querySelector("div.left-banner");
 
     const viewportCollider = {
         root: null, //default; browser viewport, targets intersectional element
