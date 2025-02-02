@@ -26,3 +26,22 @@
     </body>
 </html>
 
+<script>
+    new IntersectionObserver();     
+
+    const section = document.querySelector(".section-2");
+    const theObserver = new IntersectionObserver(callbackFunction, options);
+    const options = {
+        root: null, //default; browser viewport, targets intersectional element
+        threshold: 0, //default; 0, percentage of target that should be visible
+        rootMargin: "0px", //margin difference from threshold
+    }
+
+    theObserver.observe(section);
+
+    function callbackFunction(entries) {
+        console.log(entries);
+    }
+
+</script>
+

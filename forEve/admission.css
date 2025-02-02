@@ -9,7 +9,7 @@ h2 {
 }
 
 section {
-    background-color: #dbe6eb;
+    background-color: rgb(197, 109, 105);
     height: 100vh;
     display: flex;
     justify-content: center;
