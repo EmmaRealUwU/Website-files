@@ -24,8 +24,11 @@
             <h2>Section 3</h2>
         </section>
         <section class="section-4">
-            <h2>Section 4</h2>
-            <img class="panel-4" src="me_when.jpg" alt="A crowd of protestors" />
+            <div class="top-banner" id="top"></div>
+            <div class="left-banner" id="left"></div>
+            <div class="right-banner" id="right"></div>
+            <div class="bottom-banner" id="bottom"></div>
+            <img class="sticky-panel" src="me_when.jpg" alt="A crowd of protestors" />
         </section>
         <section class="section-5">
             <h2>Section 5</h2>
@@ -37,7 +40,7 @@
 </html>
 
 <script>
-    function scrollLeft(entries) {
+    function stickier(entries) {
         entries.forEach(entry => {
             
             entry.target.style.top = "0vh";
@@ -45,8 +48,18 @@
             
         })
     }
+
+    function scrollLeft(entries) {
+        entries.forEach(entry => {
+            console.log(entry.intersectionRatio)
+            bar = document.getElementById("left");
+            
+
+        })
+    }
     
     const section4 = document.querySelector("section.section-4");
+    const section5 = document.querySelector("section.section-5");
 
     const options = {
         root: null, //default; browser viewport, targets intersectional element
@@ -54,8 +67,13 @@
         rootMargin: "0px", //margin difference from threshold
     }
 
-    const theObserver = new IntersectionObserver(scrollLeft, options);
-    theObserver.observe(section4);
+    const stickyObserver = new IntersectionObserver(stickier, options);
+    stickyObserver.observe(section4);
+
+    const leftbarScroller = new IntersectionObserver(scrollLeft, options);
+    leftbarScroller.observe(section5);
+
+
 
     //current implementation plan
 
