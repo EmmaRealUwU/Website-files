@@ -24,40 +24,50 @@
             <h2>Section 3</h2>
         </section>
         <section class="section-4">
-            <div class="top-banner" id="top"></div>
-            <div class="left-banner" id="left"></div>
-            <div class="right-banner" id="right"></div>
-            <div class="bottom-banner" id="bottom"></div>
+            <div class="top-banner"     id="top"></div>
+            <div class="left-banner"    id="left"></div>
+            <div class="right-banner"   id="right"></div>
+            <div class="bottom-banner"  id="bottom"></div>
             <img class="sticky-panel" src="me_when.jpg" alt="A crowd of protestors" />
         </section>
         <section class="section-5">
-            <h2>Section 5</h2>
+            <img class="sticky-panel" src="me_when.jpg" alt="A crowd of protestors" />
         </section>
         <section class="section-6">
-            <h2>Section 6</h2>
+            <img class="sticky-panel" src="me_when.jpg" alt="A crowd of protestors zoomed out fully" />
         </section>
     </body>
 </html>
 
 <script>
+    window.onload = function () {
+        leftbar = document.getElementById("left");
+        leftbar.style.setProperty("left", "0px;");
 
-    function stickier(entries) {
-        entries.forEach(entry => {
-            
-            entry.target.style.top = "0vh";
-            //entry.target.style.position = "sticky";
-            
-        })
+
     }
 
-    function scrollLeft(entries) {
-        entries.forEach(entry => {
-            r = entry.intersectionRatio
-            //console.log(entry);
-            leftbar = document.getElementById("left")
+    window.onscroll = function () {
+        var offsetToSection5 = section5.getBoundingClientRect();
+        var top5 = offsetToSection5.top;
+        console.log(top5);
+        //from top5 being vh to 0, do the cinema scroll
+        //above vh, set max (1), below 0 set min (0)
+        //functions negate the x attribute in x-banner in section 4
 
-            entry.target.style.tranform = 'rotate(' + r + 'turn);';
-        })
+        var offsetToSection6 = section6.getBoundingClientRect();
+        var top6 = offsetToSection6.top;
+        console.log(top6);
+        //from top6 being vh to 0, do the zoom. maybe add another section if scroll is too fast
+        //above vh, set max (1), below 0 set min (0)
+        //function zoom img in section 4
+    }
+
+    function scrollLeft(offset) {
+        leftbar = document.getElementById("left");
+        console.log(leftbar.left);
+        console.log(leftbar);
+        leftbar.style.setProperty("left", (-1 * offset * leftbar.offsetWidth).toString + "px");
     }
 
     function scrollRight(entries) {
@@ -83,9 +93,6 @@
         threshold: [0, 0.25, 0.5, 0.75, 1.0], //default; 0, percentage of target that should be visible
         rootMargin: "0px", //margin difference from threshold
     }
-
-    const stickyObserver = new IntersectionObserver(stickier, viewportCollider);
-    stickyObserver.observe(section4);
 
     const leftbarScroller = new IntersectionObserver(scrollLeft, gradualOverlay);
     leftbarScroller.observe(section5);
