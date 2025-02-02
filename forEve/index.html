@@ -40,37 +40,54 @@
 </html>
 
 <script>
+
     function stickier(entries) {
         entries.forEach(entry => {
             
             entry.target.style.top = "0vh";
-            entry.target.style.position = "sticky";
+            //entry.target.style.position = "sticky";
             
         })
     }
 
     function scrollLeft(entries) {
         entries.forEach(entry => {
-            console.log(entry.intersectionRatio)
-            bar = document.getElementById("left");
-            
+            r = entry.intersectionRatio
+            //console.log(entry);
+            leftbar = document.getElementById("left")
 
+            entry.target.style.tranform = 'rotate(' + r + 'turn);';
+        })
+    }
+
+    function scrollRight(entries) {
+        entries.forEach(entry => {
+            r = entry.intersectionRatio
+            console.log(entry);
+            document.getElementById("right").transform = 'rotate(' + r + 'turn);';
         })
     }
     
     const section4 = document.querySelector("section.section-4");
     const section5 = document.querySelector("section.section-5");
+    const section6 = document.querySelector("section.section-6");
 
-    const options = {
+    const viewportCollider = {
         root: null, //default; browser viewport, targets intersectional element
         threshold: 1, //default; 0, percentage of target that should be visible
         rootMargin: "0px", //margin difference from threshold
     }
 
-    const stickyObserver = new IntersectionObserver(stickier, options);
+    const gradualOverlay = {
+        root: null, //default; browser viewport, targets intersectional element
+        threshold: [0, 0.25, 0.5, 0.75, 1.0], //default; 0, percentage of target that should be visible
+        rootMargin: "0px", //margin difference from threshold
+    }
+
+    const stickyObserver = new IntersectionObserver(stickier, viewportCollider);
     stickyObserver.observe(section4);
 
-    const leftbarScroller = new IntersectionObserver(scrollLeft, options);
+    const leftbarScroller = new IntersectionObserver(scrollLeft, gradualOverlay);
     leftbarScroller.observe(section5);
 
 
