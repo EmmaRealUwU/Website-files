@@ -3,22 +3,49 @@ h2 {
 }
 
 .img {
-    width: 95%;
-    max-width: 600px;
+    height: 100vh;
     transition: all 1.5s ease-in;
 }
 
-section {
+.section-1{
     background-color: rgb(197, 109, 105);
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    overflow: hidden;
 }
-
 .section-2 {
     background-color: #fff;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.section-3 {
+    background-color: rgb(197, 109, 105);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.section-4 {
+    background-color: #fff;
+    height: 100vh;
+    display: flex;
+}
+.section-5 {
+    background-color: rgb(197, 109, 105);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.section-6 {
+    background-color: #fff;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .hidden {

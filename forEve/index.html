@@ -18,30 +18,56 @@
             <h2>Section 1</h2>
         </section>
         <section class="section-2">
-            <img class="img" src="me_when.jpg" alt="" />
+            <h2>Section 2</h2>
         </section>
         <section class="section-3">
             <h2>Section 3</h2>
+        </section>
+        <section class="section-4">
+            <h2>Section 4</h2>
+            <img class="panel-4" src="me_when.jpg" alt="A crowd of protestors" />
+        </section>
+        <section class="section-5">
+            <h2>Section 5</h2>
+        </section>
+        <section class="section-6">
+            <h2>Section 6</h2>
         </section>
     </body>
 </html>
 
 <script>
-    new IntersectionObserver();     
+    function scrollLeft(entries) {
+        entries.forEach(entry => {
+            
+            entry.target.style.top = "0vh";
+            entry.target.style.position = "sticky";
+            
+        })
+    }
+    
+    const section4 = document.querySelector("section.section-4");
 
-    const section = document.querySelector(".section-2");
-    const theObserver = new IntersectionObserver(callbackFunction, options);
     const options = {
         root: null, //default; browser viewport, targets intersectional element
-        threshold: 0, //default; 0, percentage of target that should be visible
+        threshold: 1, //default; 0, percentage of target that should be visible
         rootMargin: "0px", //margin difference from threshold
     }
 
-    theObserver.observe(section);
+    const theObserver = new IntersectionObserver(scrollLeft, options);
+    theObserver.observe(section4);
 
-    function callbackFunction(entries) {
-        console.log(entries);
-    }
+    //current implementation plan
+
+    //observer for sidebars and section 3 intersection, to gradually go offscreen.
+    //  use transform margin / total width times "entry.intersectionRatio" variable so scrolling back up reverses the process
+    //
+
+    //use two sections that zoom out the total crowd img when scrolled over with sticky. 
+
+    //resources consulted:
+    //  https://daveyhert.medium.com/revealing-contents-on-scroll-using-javascripts-intersection-observer-api-ab09f4faec77
+    //  https://blog.webdevsimplified.com/2022-01/intersection-observer/
 
 </script>
 
