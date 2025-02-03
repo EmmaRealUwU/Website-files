@@ -30,10 +30,8 @@
             <div class="bottom-banner" id="bottom"></div>
         </section>
         <section class="section-5">
-            <img class="sticky-panel" src="me_when.jpg" alt="A crowd of protestors" />
         </section>
         <section class="section-6">
-            <img class="sticky-panel" src="me_when.jpg" alt="A crowd of protestors zoomed out fully" />
         </section>
     </body>
 </html>
@@ -48,17 +46,20 @@
         var top5 = offsetToSection5.top;
         var newVH = window.innerHeight;
         var newVW = window.innerWidth;
+        //finds current vw, vh, and distance to section 5 of the page
         offsetProgress = top5 / newVH;
-        width = document.getElementById("left").offsetWidth;
-        newLeft = (100 * offsetProgress * width / newVW - 31.333)
-        //if bigger than 0, set to 0
-        if (newLeft > 0) {
-            newLeft = 0;
-        }
-        if (newLeft < -20) {
-            newLeft = -20;
-        }
-        document.getElementById("left").style.left = newLeft.toString() + "vw";
+        leftbannerwidth = document.getElementById("left").offsetWidth;
+        rightbannerwidth = document.getElementById("right").offsetWidth;
+        topbannerheight = document.getElementById("top").offsetHeight;
+        bottombannerheight = document.getElementById("bottom").offsetHeight;
+        //uses found values to calculate new offset of banners on section 4
+        newLeft = (100 * offsetProgress * leftbannerwidth / newVW - 31.333)
+        newRight = (100 * offsetProgress * rightbannerwidth / newVW - 91.333)
+        newTop = (100 * offsetProgress * topbannerheight / newVH - 31.333)
+
+
+        setLeftBanner(newLeft);
+        setRightBanner(newRight);
 
         //console.log(top5);
         //from top5 being vh to 0, do the cinema scroll
@@ -73,32 +74,30 @@
         //function zoom img in section 4
     }
 
-    function scrollLeftBar(offset) {
-        document.getElementById("left").style.left = "-20vw";
+    function setLeftBanner(newLeft) {
+        if (newLeft > 0) {
+            newLeft = 0;
+        }
+        if (newLeft < -20) {
+            newLeft = -20;
+        }
+        document.getElementById("left").style.left = newLeft.toString() + "vw";
     }
 
-
-    function scrollLeft(entries, o) {
-        entries.forEach(entry => {
-            entry.target.style.left = (-1 * entry.target.getBoundingClientRect().top / window.innerHeight * leftbar.offsetWidth).toString + "px;";
-            //console.log(entry.target.getBoundingClientRect().top);
-            //console.log(entry.target.getBoundingClientRect().window.innerHeight);
-            //console.log(entry.target.getBoundingClientRect().leftbar.offsetWidth);
-        })
+    function setRightBanner(newRight) {
+        if (newRight > -60) {
+            newRight = -60;
+        }
+        if (newRight < -80) {
+            newRight = -80;
+        }
+        newRight += 2
+        document.getElementById("right").style.right = newRight.toString() + "vw";
     }
 
-    function scrollRight(entries) {
-        entries.forEach(entry => {
-            r = entry.intersectionRatio
-            console.log(entry);
-            document.getElementById("right").transform = 'rotate(' + r + 'turn);';
-        })
-    }
-    
     const section4   = document.querySelector("section.section-4");
     const section5   = document.querySelector("section.section-5");
     const section6   = document.querySelector("section.section-6");
-    const leftBanner = document.querySelector("div.left-banner");
 
     const viewportCollider = {
         root: null, //default; browser viewport, targets intersectional element
@@ -112,8 +111,6 @@
         rootMargin: "0px", //margin difference from threshold
     }
 
-    const leftbarScroller = new IntersectionObserver(scrollLeft, gradualOverlay);
-    leftbarScroller.observe(section5);
 
 
 
