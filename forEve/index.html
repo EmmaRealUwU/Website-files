@@ -77,7 +77,6 @@
         var offsetToSection6 = section6.getBoundingClientRect();
         var top6 = offsetToSection6.top;
         offsetProgress6 = top6 / newVH;
-        console.log(offsetProgress6);
         if (offsetProgress6 > 1.58567998046875) {
             offsetProgress6 = 1.58567998046875;
         }
@@ -85,7 +84,7 @@
             offsetProgress6 = 0.02;
         }
         
-        newZoom = 4000 * offsetProgress6 / 1.58567998046875;
+        newZoom = 2100 * offsetProgress6 / 1.58567998046875;
 
         setZoomCamera(newZoom);
 
@@ -121,8 +120,8 @@
     }
 
     function setTopBanner(newTop) {
-        if (newTop > -5) {
-            newTop = -5;
+        if (newTop > 0) {
+            newTop = 0;
         }
         if (newTop < -20) {
             newTop = -20;
