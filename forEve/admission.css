@@ -2,6 +2,15 @@ h2 {
     font-size: 3rem;
 }
 
+.section-0 {
+    background-color: #fff;
+    height: 100vh;
+    width: 100vw;
+    display: inline-block;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+}
 .section-1 {
     background-color: rgb(197, 109, 105);
     height: 100vh;
