@@ -14,20 +14,24 @@
     </head>
 
     <body>
+        <section class="section-0">
+            <img src="https://upload.wikimedia.org/wikipedia/en/8/84/Le_Cou_de_la_girafe.jpg">
+        </section>
         <section class="section-1">
-            <h2>Section 1</h2>
+            <img src="https://upload.wikimedia.org/wikipedia/en/8/84/Le_Cou_de_la_girafe.jpg">
         </section>
         <section class="section-2">
-            <h2>Section 2</h2>
+            <img src="https://upload.wikimedia.org/wikipedia/en/8/84/Le_Cou_de_la_girafe.jpg">
         </section>
         <section class="section-3">
-            <h2>Section 3</h2>
+            <img src="https://upload.wikimedia.org/wikipedia/en/8/84/Le_Cou_de_la_girafe.jpg">
         </section>
         <section class="section-4">
             <div class="top-banner" id="top"></div>
             <div class="left-banner" id="left"></div>
             <div class="right-banner" id="right"></div>
             <div class="bottom-banner" id="bottom"></div>
+            <div class="camera" id="camera"></div>
         </section>
         <section class="section-5">
         </section>
@@ -42,36 +46,54 @@
     }
 
     window.onscroll = function () {
+    //finds current vw, vh, and distance to section 5 of the page
         var offsetToSection5 = section5.getBoundingClientRect();
         var top5 = offsetToSection5.top;
         var newVH = window.innerHeight;
         var newVW = window.innerWidth;
-        //finds current vw, vh, and distance to section 5 of the page
-        offsetProgress = top5 / newVH;
+        offsetProgress5 = top5 / newVH;
+        //
         leftbannerwidth = document.getElementById("left").offsetWidth;
         rightbannerwidth = document.getElementById("right").offsetWidth;
         topbannerheight = document.getElementById("top").offsetHeight;
         bottombannerheight = document.getElementById("bottom").offsetHeight;
         //uses found values to calculate new offset of banners on section 4
-        newLeft = (100 * offsetProgress * leftbannerwidth / newVW - 31.333)
-        newRight = (100 * offsetProgress * rightbannerwidth / newVW - 91.333)
-        newTop = (100 * offsetProgress * topbannerheight / newVH - 31.333)
+        newLeft = (100 * offsetProgress5 * leftbannerwidth / newVW - 31.333)
+        newRight = (100 * offsetProgress5 * rightbannerwidth / newVW - 91.333)
+        newTop = (100 * offsetProgress5 * topbannerheight / newVH - 31.333)
+        newBottom = (100 * offsetProgress5 * bottombannerheight / newVH - 31.333)
 
-
+        //sets margins for the elements
         setLeftBanner(newLeft);
         setRightBanner(newRight);
+        setTopBanner(newTop);
+        setBottomBanner(newBottom);
 
-        //console.log(top5);
-        //from top5 being vh to 0, do the cinema scroll
-        //above vh, set max (1), below 0 set min (0)
-        //functions negate the x attribute in x-banner in section 4
-
+        //finds current distance to section 6 of the page
         var offsetToSection6 = section6.getBoundingClientRect();
         var top6 = offsetToSection6.top;
-        //console.log(top6);
-        //from top6 being vh to 0, do the zoom. maybe add another section if scroll is too fast
-        //above vh, set max (1), below 0 set min (0)
-        //function zoom img in section 4
+        offsetProgress6 = top6 / newVH;
+        console.log(offsetProgress6);
+        if (offsetProgress6 > 1.58567998046875) {
+            offsetProgress6 = 1.58567998046875;
+        }
+        if (offsetProgress6 < 0.02) {
+            offsetProgress6 = 0.02;
+        }
+        
+        newZoom = 4000 * offsetProgress6 / 1.58567998046875;
+
+        setZoomCamera(newZoom);
+
+        //make it so above 1.58567998046875, its static at like ??? zoom
+        //make it so at 0 or below, its static at like total zoom out
+        //100% is like size newvh px by newvw px
+
+
+        var offsetToCamera = cameraimg.getBoundingClientRect();
+        var cameratop = offsetToCamera.top;
+        //console.log(cameratop)
+        //(to zoom change property background-size)
     }
 
     function setLeftBanner(newLeft) {
@@ -91,13 +113,39 @@
         if (newRight < -80) {
             newRight = -80;
         }
-        newRight += 2
         document.getElementById("right").style.right = newRight.toString() + "vw";
+    }
+
+    function setTopBanner(newTop) {
+        if (newTop > -5) {
+            newTop = -5;
+        }
+        if (newTop < -20) {
+            newTop = -20;
+        }
+        document.getElementById("top").style.top = newTop.toString() + "vh";
+    }
+
+    function setBottomBanner(newBottom) {
+        if (newBottom > 23.57482363536691) {
+            newBottom = 23.57482363536691;
+        }
+        if (newBottom < -11.531449369566918) {
+            newBottom = -11.531449369566918;
+        }
+        newBottom += 16.42517636463309;
+        newBottom = (newBottom +40) / 2 //i have absolutely NO clue why this is how its supposed to go but, this is how its supposed to go
+        document.getElementById("bottom").style.bottom = newBottom.toString() + "vh";
+    }
+
+    function setZoomCamera(newZoom) {
+        document.getElementById("camera").style.backgroundSize = newZoom.toString() + "%";
     }
 
     const section4   = document.querySelector("section.section-4");
     const section5   = document.querySelector("section.section-5");
     const section6   = document.querySelector("section.section-6");
+    const cameraimg  = document.querySelector("div.camera");
 
     const viewportCollider = {
         root: null, //default; browser viewport, targets intersectional element

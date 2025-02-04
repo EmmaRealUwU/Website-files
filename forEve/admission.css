@@ -30,15 +30,20 @@ h2 {
     margin: auto;
 }
 .section-4 {
-    background-image: url(https://upload.wikimedia.org/wikipedia/en/8/84/Le_Cou_de_la_girafe.jpg); 
-    background-size: cover;
+    background-color: blue;
     height: 100vh;
     width: 100vw;
     top: 0vh;
     position: sticky;
-    margin: auto;
     display: inline-block;
 }
+
+.section-4-alt {
+    background-image: url(crowd.png);
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
 .section-5 {
     background-color: rgb(197, 109, 105);
     height: 100vh;
@@ -58,25 +63,38 @@ h2 {
     margin: auto;
 }
 
+.sticky-panel {
+    position: relative;
+    width: 200vw;
+    aspect-ratio: auto;
+    display: inline-block;
+    z-index: 0;
+}
+
+.camera {
+    background-image: url(total_view_fixed_centered4.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 4000%;
+    top: -156vh;
+    left: 0vw;
+    display: inline-block;
+    position: relative;
+    align-self: center;
+    height: 100vh;
+    width: 100vw;
+}
+
 .hidden {
     opacity: 0;
     transform: translateX(100%);
 }
 
-.sticky-panel {
-    position: relative;
-    top: 0vw;
-    height: 100vh;
-    width: 100vw;
-    display: inline-block;
-    z-index: 0;
-}
-
 .top-banner {
     background: white;
     position: relative;
-    top: 0vw;
-    height: 20vh;
+    top: -4vh;
+    height: 15vh;
     width: 100vw;
     display: inline-block;
     z-index: 1;
@@ -85,7 +103,7 @@ h2 {
 .left-banner {
     background: white;
     position: relative;
-    top: -10vh;
+    top: -20vh;
     left: 0vw;
     height: 100vh;
     width: 20vw;
@@ -97,7 +115,7 @@ h2 {
 .right-banner {
     background: white;
     position: relative;
-    top: -10vh;
+    top: -20vh;
     right: -60vw;
     height: 100vh;
     width: 20vw;
